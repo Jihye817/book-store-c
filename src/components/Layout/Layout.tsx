@@ -11,7 +11,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <LayoutStyle>
       <Header />
-      <main>{children}</main>
+      <Main>{children}</Main>
       <Footer />
     </LayoutStyle>
   );
@@ -21,6 +21,9 @@ const LayoutStyle = styled.main`
   width: 100%;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
+`;
+
+const Main = styled.div`
   padding: 20px 0;
 `;
 
