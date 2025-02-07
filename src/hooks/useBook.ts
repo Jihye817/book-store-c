@@ -9,14 +9,14 @@ export const useBook = (bookId: string | undefined) => {
   const [book, setBook] = useState<BookDetail | null>(null);
   const [cartAdded, setCartAdded] = useState(false);
   const { isloggedIn } = useAuthStore();
-  const showAlert = useAlert();
+  const { showAlert } = useAlert();
 
   const likeToggle = () => {
     if (!isloggedIn) {
       showAlert("로그인이 필요합니다.");
       return;
     }
-    
+
     if (!book) return;
 
     if (book.liked) {
