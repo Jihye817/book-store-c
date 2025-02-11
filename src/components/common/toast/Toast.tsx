@@ -8,13 +8,13 @@ export const TOAST_REMOVE_DELAY = 3000;
 
 function Toast({ id, message, type }: ToastItem) {
   const removeToast = useToastStore((state) => state.removeToast);
-  const [isFadingOut, SetIsFadingOut] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   const handleRemoveToast = () => {
-    SetIsFadingOut(true);
+    setIsFadingOut(true);
   };
 
-  useTImeout(() => SetIsFadingOut(true), TOAST_REMOVE_DELAY);
+  useTImeout(() => setIsFadingOut(true), TOAST_REMOVE_DELAY);
 
   const handleAnimationEnd = () => {
     if (isFadingOut) {
