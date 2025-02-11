@@ -39,6 +39,9 @@ interface Theme {
       [key in LayoutWidth]: string;
     };
   };
+  dropdown: {
+    color: string;
+  }
 }
 
 export const light: Theme = {
@@ -100,6 +103,9 @@ export const light: Theme = {
       small: "320px",
     },
   },
+  dropdown: {
+    color: "white"
+  }
 };
 
 export const dark: Theme = {
@@ -111,8 +117,11 @@ export const dark: Theme = {
     third: "darkgreen",
     background: "midnightblue",
     border: "grey",
-    text: "black",
+    text: "#eee",
   },
+  dropdown: {
+    color: "midnightblue"
+  }
 };
 
 export const getTheme = (themeName: ThemeName): Theme => {
