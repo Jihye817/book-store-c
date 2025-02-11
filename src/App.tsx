@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Home from "./pages/Home";
 import Layout from "./components/Layout/Layout";
 import { BookStoreThemeProvider } from "./context/themeContext";
@@ -9,10 +9,11 @@ import ResetPassword from "./pages/ResetPassword";
 import Login from "./pages/Login";
 import Books from "./pages/Books";
 import BookDetail from "./pages/BookDetail";
-import { getToken, useAuthStore } from "./store/authStore";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import OrderList from "./pages/OrderList";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "./api/queryClient";
 
 const routeList = [
   {
@@ -65,9 +66,11 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <BookStoreThemeProvider>
-      <RouterProvider router={router} />
-    </BookStoreThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <BookStoreThemeProvider>
+        <RouterProvider router={router} />
+      </BookStoreThemeProvider>
+    </QueryClientProvider>
   );
 }
 
