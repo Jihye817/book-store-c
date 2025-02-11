@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Title from "../components/common/Title";
 import styled from "styled-components";
 import BooksFilter from "../components/books/BooksFilter";
@@ -10,6 +10,7 @@ import { useBooks } from "../hooks/useBooks";
 import Loading from "@/components/common/Loading";
 import { useBooksInfinite } from "@/hooks/useBooksInfinite";
 import Button from "@/components/common/Button";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 function Books() {
   const {
@@ -20,6 +21,36 @@ function Books() {
     fetchNextPage,
     hasNextPage,
   } = useBooksInfinite();
+
+  // const moreRef = useRef(null);
+
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver((entries) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         loadMore();
+  //         observer.unobserve(entry.target);
+  //       }
+  //     });
+  //   });
+
+  //   if(moreRef.current) {
+  //     observer.observe(moreRef.current);
+  //   }
+
+  //   return () => observer.disconnect();
+  // }, [books, moreRef]);
+
+  const moreRef = useIntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      loadMore();
+    }
+  });
+
+  const loadMore = () => {
+    if (!hasNextPage) return;
+    fetchNextPage();
+  };
 
   if (isEmpty) {
     return <BooksEmpty />;
@@ -39,7 +70,7 @@ function Books() {
         </div>
         <BooksList books={books} />
         {/* <Pagination pagination={pagination} /> */}
-        <div className="more">
+        <div className="more" ref={moreRef}>
           <Button
             size="medium"
             scheme="normal"
